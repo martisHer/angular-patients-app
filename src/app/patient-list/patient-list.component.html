@@ -1,0 +1,99 @@
+<div class="main-container">
+
+  <div class="filter-box">
+    <h2>Filter Patient</h2>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field>
+          <mat-label>Search Patient by name, lastname or email</mat-label>
+          <input matInput (keyup)="queryPatient($event)">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <mat-form-field>
+          <mat-label>Gender</mat-label>
+          <mat-select (selectionChange)="filterByGender($event.value)">
+            <mat-option value="female">Female</mat-option>
+            <mat-option value="male">Male</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <mat-select (selectionChange)="filterByAge($event.value)">
+            <mat-option value="0">18-30</mat-option>
+            <mat-option value="1">31-45</mat-option>
+            <mat-option value="2">Older than 45</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-custom-black" (click)="clearFilter()">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+      
+          <!-- Patient id Column -->
+          <ng-container matColumnDef="patientId">
+            <th mat-header-cell *matHeaderCellDef> Patient ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.patient_id}} </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
+          </ng-container>
+      
+          <!-- Lastname Column -->
+          <ng-container matColumnDef="lastname">
+            <th mat-header-cell *matHeaderCellDef> Lastname </th>
+            <td mat-cell *matCellDef="let element"> {{element.last_name}} </td>
+          </ng-container>
+      
+          <!-- Gender Column -->
+          <ng-container matColumnDef="gender">
+            <th mat-header-cell *matHeaderCellDef> Gender </th>
+            <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+          </ng-container>
+    
+          <!-- Details Column -->
+          <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button class="btn btn-custom-1" routerLink="/detail/{{element.patient_id}}" routerLinkActive="router-link-active" >Details</button>
+            </td>
+          </ng-container>
+
+          <!-- Delete Column -->
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button class="icon-button" (click)="openDialog(element.patient_id)">
+                <mat-icon aria-hidden="false" aria-label="Delete" fontIcon="delete"></mat-icon>
+              </button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[10, 15, 20]"
+                       showFirstLastButtons
+                       aria-label="Select page">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+  
+</div>

@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.main-container {
+    margin: 2%;
+    padding: 1%;
+}
+
+.btn-custom-1 {
+    background-color: #ff7369;
+    color: #191919;
+}
+
+.btn-custom-1:hover {
+    background-color: #ff968f;
+    color: #191919;
+}
+
+.btn-custom-black {
+    background-color: #424242;
+    color: white;
+}
+
+.btn-custom-black:hover {
+    background-color: #595959;
+    color: white;
+}
+
+table {
+    max-width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.icon-button {
+    background-color: transparent;
+    border: none;
+}
+
+.float-right {
+    float: right;
+}

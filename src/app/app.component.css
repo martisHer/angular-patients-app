@@ -1,0 +1,49 @@
+.toolbar, .page-menu {
+    background-color: #ff7369;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #191919;
+    padding-top: 4px;
+    padding-left: 2%;
+    border-bottom: 2px solid #424242;
+}
+
+nav a {
+    color: #F8FBEF;
+    text-decoration: none;
+    margin: 3%;
+    font-weight: 400;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+
+.page-content {
+    padding-top: 2%;
+}
+
+
+.left-button {
+    background-color: #92140C;
+}
+
+.left-button:hover {
+    background-color: #db3227;
+}
+
+.right-button {
+    background-color: #4ECDC4;
+}
+
+.right-button:hover {
+    background-color: #91fff7;
+}
+
+
+.row {
+    max-width: 100%;
+}
+

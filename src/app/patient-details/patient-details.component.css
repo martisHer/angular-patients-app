@@ -1,0 +1,8 @@
+.details-card {
+    margin: 2%;
+    border: 1px solid #424242;
+    border-radius: 10px;
+    padding: 2%;
+    font-size: 16px;
+    background-color: #fff8f7;
+}
