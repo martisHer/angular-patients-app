@@ -1,0 +1,9 @@
+.form-box {
+    border: 1px solid #424242;
+    border-radius: 5px;
+    padding: 5%;
+    background-color: #fff8f7;
+    -webkit-box-shadow: 4px 5px 7px 1px #000000; 
+    box-shadow: 4px 5px 7px 1px #000000;
+    min-height: 500px;
+}

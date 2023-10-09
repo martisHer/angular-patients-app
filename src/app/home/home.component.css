@@ -1,0 +1,44 @@
+.panel-button {
+    height: 120px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 2%;
+    background-color: #fff8f7;
+    color: #191919;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 28px;
+    border: 1px solid #A4A8B7;
+    padding-top: 5%;
+}
+
+mat-icon {
+    font-size: 28px;
+    width: 28px;
+}
+
+.panel-button:hover {
+    cursor: pointer;
+    background-color: #fffbfa;
+}
+
+img {
+    width: 100%;
+}
+
+.header {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    /* vertical-align: inherit; */
+    margin-top: 7%;
+}
+
+.header h1 {
+    color: white;
+    font-size: 60px;
+}
+
+.option-panel {
+    margin: 3% 5%;
+}

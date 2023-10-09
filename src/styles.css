@@ -44,3 +44,7 @@ mat-form-field {
 .float-right {
     float: right;
 }
+
+.active-link {
+    cursor: pointer;
+}

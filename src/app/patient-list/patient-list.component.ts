@@ -24,7 +24,7 @@ export interface DialogData {
   imports: [MatTableModule, MatPaginatorModule, MatFormFieldModule, MatSelectModule, MatInputModule, RouterModule, MatIconModule],
 })
 export class PatientListComponent {
-  displayedColumns: string[] = ['patientId', 'name', 'lastname', 'gender', 'details', 'delete'];
+  displayedColumns: string[] = ['patientId', 'name', 'lastname', 'gender', 'details', 'edit', 'delete'];
   dataSource = new MatTableDataSource<Patient>(PATIENTS);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

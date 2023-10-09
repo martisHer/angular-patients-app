@@ -1,1 +1,54 @@
-<p>add-patient works!</p>
+<div class="main-container"> 
+   <div class="row">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+         <div class="form-box">
+            <h1 *ngIf="!patient">Add new Patient</h1>
+            <h1 *ngIf="patient">Edit Patient</h1>
+            <form [formGroup]="formdata" (ngSubmit)="submitForm(formdata)" *ngIf="formdata"> 
+               <div class="form-group">
+                  <label for="firstname">Firstname*</label>
+                  <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name" formControlName="firstname">
+                </div>
+                <div class="form-group mt-2">
+                  <label for="lastname">Lastname*</label>
+                  <input type="text" class="form-control" id="lastname" name="lastname" placeholder="lastname" formControlName="lastname">
+                </div>
+                <div class="form-group mt-2">
+                  <label for="email">Email*</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="email" formControlName="email">
+                </div>
+                <div class="form-group mt-2">
+                  <label for="age">Age*</label>
+                  <input type="number" class="form-control" id="age" name="age" placeholder="age" formControlName="age">
+                </div>
+      
+                <div class="form-group mt-2">
+                  <label for="gender">Gender*</label>
+                  <select class="form-control" id="gender" name="gender" placeholder="gender" formControlName="gender">
+                     <option value="" selected disabled>Please select</option>
+                     <option value="Male">Male</option>
+                     <option value="Female">Female</option>
+                  </select>
+                </div>
+      
+                <button type="submit" class="btn btn-custom-1 mt-3 float-right" *ngIf="!patient">Add Patient</button>
+                <button type="submit" class="btn btn-custom-1 mt-3 float-right" *ngIf="patient">Edit Patient</button>
+            </form>
+         </div>
+      </div>
+      <div class="col-lg-3"></div>
+   </div>
+   <div class="row mt-3">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+         <div class="alert alert-success" role="alert" *ngIf="successMessage">
+            Patient succesfully created!
+         </div>
+         <div class="alert alert-success" role="alert" *ngIf="updatedMessage">
+            Patient succesfully updated!
+         </div>
+      </div>
+      <div class="col-lg-3"></div>
+   </div>
+ </div> 

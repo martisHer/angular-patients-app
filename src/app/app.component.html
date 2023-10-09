@@ -3,8 +3,8 @@
 <div class="toolbar" role="banner">
   <div class="row">
     <div class="col-md-8">
-      <img routerLink="/" width="50" alt="Patient App Logo" src="../assets/Patient-icon-by-hellopixelzstudio.png"/>
-      <span routerLink="/">Patients App</span>
+      <img class="active-link" routerLink="/" width="50" alt="Patient App Logo" src="../assets/Patient-icon-by-hellopixelzstudio.png"/>
+      <span class="active-link" routerLink="/">Patients App</span>
     </div>
     <div class="col-md-4">
       <nav class="mt-2">
@@ -16,7 +16,7 @@
 </div>
 
 <div class="content" role="main">
-
+<app-home *ngIf="router.url === '/'"></app-home>
 
 </div>
 
