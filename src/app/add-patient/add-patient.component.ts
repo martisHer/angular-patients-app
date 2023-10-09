@@ -64,7 +64,7 @@ export class AddPatientComponent {
   }
 
  /**
-  * Create new patient or edit existing one
+  * Create new patient or edit existing onecd
   * @param data 
   */
   submitForm(data: FormGroup) {
