@@ -15,19 +15,25 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientDetailsComponent,
-    AddPatientComponent
+    AddPatientComponent,
+    HomeComponent,
+    ConfirmationDialogComponent,
+    PatientListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    PatientListComponent,
-    ConfirmationDialogComponent,
     MatTableModule,
     MatPaginatorModule,
     BrowserModule,
@@ -36,7 +42,14 @@ import { HomeComponent } from './home/home.component';
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
-    HomeComponent   
+    MatSelectModule,
+    MatIconModule,
+    MatTableModule,
+    RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

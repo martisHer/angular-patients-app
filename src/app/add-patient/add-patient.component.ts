@@ -1,39 +1,50 @@
-import { Component } from '@angular/core';
-import { Patient } from '../models/patient.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Patient } from '../interfaces/interfaces';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 import { PatientService } from '../services/patient.service';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-add-patient',
   templateUrl: './add-patient.component.html',
   styleUrls: ['./add-patient.component.css']
 })
-export class AddPatientComponent {
+export class AddPatientComponent implements OnInit, OnDestroy {
+
+  private ngUnsubscribe = new Subject<void>();
   submitted = false;
   formdata!: FormGroup;
   patient!: Patient;
   successMessage = false;
-  updatedMessage = false;
   id!: any;
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
-              private patientService: PatientService,) {}
+              private location: Location,
+              private patientService: PatientService,) {
+                this.formdata = this.fb.group({
+                  firstname: ['', Validators.required],
+                  lastname: ['', Validators.required],
+                  email: ['', Validators.required],
+                  age: [0, Validators.required],
+                  gender: [Validators.required],
+                  avatar: []
+                });
+              }
   
   ngOnInit() { 
     this.successMessage = false;
-    this.updatedMessage = false;
+    // Get route id
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
       this.id = id;
-      this.patientService.getPatient(id).subscribe(pat => {
+      this.patientService.getPatientById(id).subscribe(pat => {
         this.patient = pat;
         this.initializeForm(pat);
       });
-    } else {
-      this.initializeForm();
-    }   
+    } 
   }
 
 
@@ -41,51 +52,33 @@ export class AddPatientComponent {
    * Initialize form with patient data or empty
    * @param patientData 
    */
-  initializeForm(patientData?: Patient) {
-    if (patientData !== undefined) {
-      this.formdata = this.fb.group({
-        firstname: [patientData.first_name],
-        lastname: [patientData.last_name],
-        email: [patientData.email],
-        age: [patientData.age],
-        gender: [patientData.gender],
-        avatar: [patientData.avatar]
-      });
-    } else {
-      this.formdata = this.fb.group({
-        firstname: ['', Validators.required],
-        lastname: ['', Validators.required],
-        email: ['', Validators.required],
-        age: [0, Validators.required],
-        gender: [Validators.required],
-        avatar: []
-      });
-    }
+  initializeForm(patientData: Patient) {
+    this.formdata = this.fb.group({
+      firstname: [patientData.firstname],
+      lastname: [patientData.lastname],
+      email: [patientData.email],
+      age: [patientData.age],
+      gender: [patientData.gender],
+      avatar: [patientData.avatar]
+    });
+    
   }
 
  /**
   * Create new patient or edit existing onecd
   * @param data 
   */
-  submitForm(data: FormGroup) {
-    let newPatient = new Patient();
-    
-    newPatient.first_name = data.value.firstname;
-    newPatient.last_name = data.value.lastname;
-    newPatient.email = data.value.email;
-    newPatient.age = data.value.age;
-    newPatient.gender = data.value.gender;
-
+  submitForm() {
+    const newPatient: Patient = this.formdata.value; //updated video object
     if (this.patient) {
-      newPatient.patient_id = this.patient.patient_id;
+      newPatient.id = this.patient.id;
       newPatient.avatar = this.patient.avatar;
-      this.patientService.findAndUpdate(this.id, newPatient)
+      this.patientService.editPatient(this.id, newPatient)
       .subscribe(patient => {
-        this.updatedMessage = true;
+        this.successMessage = true;
+        this.patient = patient;
       });
     } else {
-      // Generate random id greather than 200
-      newPatient.patient_id = Math.floor(Math.random() * 100) + 200;
       newPatient.avatar = "http://dummyimage.com/194x100.png/dddddd/000000";
       this.patientService.addPatient(newPatient)
       .subscribe(patient => {
@@ -93,7 +86,21 @@ export class AddPatientComponent {
         this.successMessage = true;
       });
     }
+  }
 
+  /**
+   * Go to patient list view
+   */
+  goBack(): void {
+    this.location.back();
+  }
+
+  /**
+   * Cancel subscriptions to prevent memory leaks
+   */
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 

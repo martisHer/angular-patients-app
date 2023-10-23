@@ -5,7 +5,7 @@
          <div class="form-box">
             <h1 *ngIf="!patient">Add new Patient</h1>
             <h1 *ngIf="patient">Edit Patient</h1>
-            <form [formGroup]="formdata" (ngSubmit)="submitForm(formdata)" *ngIf="formdata"> 
+            <form [formGroup]="formdata" (ngSubmit)="submitForm()" *ngIf="formdata"> 
                <div class="form-group">
                   <label for="firstname">Firstname*</label>
                   <input type="text" class="form-control" id="firstname" name="firstname" placeholder="name" formControlName="firstname">
@@ -43,12 +43,16 @@
       <div class="col-lg-3"></div>
       <div class="col-lg-6">
          <div class="alert alert-success" role="alert" *ngIf="successMessage">
-            Patient succesfully created!
-         </div>
-         <div class="alert alert-success" role="alert" *ngIf="updatedMessage">
-            Patient succesfully updated!
+            Patient succesfully saved!
          </div>
       </div>
       <div class="col-lg-3"></div>
    </div>
+   <div class="row mt-1">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+        <button class="btn btn-custom-black float-right" type="button" (click)="goBack()">Go back</button>
+      </div>
+      <div class="col-lg-3"></div>
+    </div>
  </div> 

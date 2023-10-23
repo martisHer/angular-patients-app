@@ -1,18 +1,21 @@
-import { Component } from '@angular/core';
-import { Patient } from '../models/patient.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Patient } from '../interfaces/interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { PatientService } from '../services/patient.service';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-patient-details',
   templateUrl: './patient-details.component.html',
   styleUrls: ['./patient-details.component.css']
 })
-export class PatientDetailsComponent {
+export class PatientDetailsComponent implements OnInit,OnDestroy {
+
   patient: Patient | undefined;
+  private ngUnsubscribe = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -22,20 +25,25 @@ export class PatientDetailsComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getPatient();
-  }
-
-  /**
-   * Get patient from id
-   */
-  getPatient(): void {
+    // Get route id
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.patientService.getPatient(id)
-      .subscribe(pat => this.patient = pat);
+    this.getPatientById(id);
+  }
+
+
+  /**
+   * Get patient by id
+   * @param id patient id
+   */
+  getPatientById(id: number): void {
+    this.patientService.getPatientById(id)
+    .subscribe(patient => {
+      this.patient = patient;
+    });
   }
 
   /**
-   * Go to patient list
+   * Go to patient list view
    */
   goBack(): void {
     this.location.back();
@@ -62,9 +70,18 @@ export class PatientDetailsComponent {
    */
   deletePatient(id: number) {
     this.patientService.deletePatient(id)
-    .subscribe(pat => 
-      console.log("Patient deleted:" + pat));
+    .subscribe(pat => {
+      console.log("Patient deleted. Id: " + pat.id);
       this.goBack();
+    });
+  }
+
+  /**
+   * Cancel subscriptions to prevent memory leaks
+   */
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 }

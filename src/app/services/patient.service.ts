@@ -1,66 +1,81 @@
 import { Injectable } from '@angular/core';
-
-import { Observable, of } from 'rxjs';
-
-import { Patient } from './../models/patient.model';
-import { PATIENTS } from '../data/mock_data';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { Patient } from '../interfaces/interfaces';
+import { API } from './constants';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class PatientService {
 
-  data: any = PATIENTS;
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
-  constructor() { }
-
+  constructor(private http: HttpClient) {}
 
   /**
-   * Get patient by id
-   * @param id: patient id
-   * @returns patient object
+   * Get list of patients from json-server
+   * @returns list of patients
    */
-  getPatient(id: number): Observable<Patient> {
-    const patient = this.data.find((h: { patient_id: number; }) => h.patient_id === id)!;
-    console.log('Getting patient with id: ' + id);
-    return of(patient);
+  getPatients(): Observable<Patient[]> {
+    return this.http.get<Patient[]>(`${API}/patients`);
   }
 
   /**
-   * Delete patient from list temporarily (when refreshing patient is back)
-   * @param id: patient id to delete
-   * @returns updated list of patients
+   * Get patient by id and it maps the result to a single patient
+   * @param id patient id
+   * @returns patient
    */
-  deletePatient(id: number): Observable<Patient[]> {
-    const patient = this.data.find((p: { patient_id: number; }) => p.patient_id === id);
-    const index: number = this.data.indexOf(patient);
-    if (index !== -1) {
-        this.data.splice(index, 1);
-    } 
-    console.log('Deleting patient with id: ' + id);
-    return of(this.data);
+  getPatientById(id: number): Observable<Patient> {
+    return this.http.get<Patient[]>(`${API}/patients?id=${id}`).pipe(
+      map(patients => {
+        if (patients.length > 0) {
+          return patients[0];
+        } else {
+          throw new Error("Patient not found");
+        }
+      }),
+      catchError(this.handleError)
+    );
   }
 
   /**
-   * Add patient to the list (temporarily)
+   * Delete patient given patient id
+   * @param id patient id
+   * @returns 
+   */
+  deletePatient(id: number): Observable<Patient> {
+    return this.http.delete<Patient>(`${API}/patients/${id}`, this.httpOptions);
+  }
+
+
+  /**
+   * Create new patient and add it to json-server
    * @param patient patient to add
    * @returns updated list of patients
    */
   addPatient(patient: Patient): Observable<Patient> {
-    this.data.push(patient);
-    return of(this.data);
+    return this.http.post<Patient>(`${API}/patients`, patient, this.httpOptions); 
   }
-
 
   /**
    * Find existing patient and update it
    * @param id patient id
-   * @param newPatient new infor
+   * @param newPatient new info
    * @returns 
    */
-  findAndUpdate(id: number, newPatient: Patient): Observable<Patient[]> {
-    const patient = this.data.find((p: { patient_id: number; }) => p.patient_id === id);
-    const index: number = this.data.indexOf(patient);
-    this.data[index] = newPatient;
-    console.log('Updating patient with id: ' + id);
-    return of(this.data);
+  editPatient(id: number, newPatient: Patient): Observable<Patient> {
+    return this.http.put<Patient>(`${API}/patients/${id}`, newPatient, this.httpOptions);
   }
+
+
+  /**
+   * Catch errors in Http methods and throw an error message
+   * @param error 
+   * @returns 
+   */
+  private handleError(error: HttpErrorResponse) {
+    return throwError(() => error);
+  }
+  
 }

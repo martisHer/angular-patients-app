@@ -1,16 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { PATIENTS } from '../data/mock_data';
-import { Patient } from '../models/patient.model';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import { RouterModule } from '@angular/router';
-import {MatIconModule} from '@angular/material/icon';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import { Patient } from '../interfaces/interfaces';
 import { PatientService } from '../services/patient.service';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 
 export interface DialogData {
   patient: number;
@@ -20,12 +15,13 @@ export interface DialogData {
   selector: 'app-patient-list',
   templateUrl: './patient-list.component.html',
   styleUrls: ['./patient-list.component.css'],
-  standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatFormFieldModule, MatSelectModule, MatInputModule, RouterModule, MatIconModule],
 })
-export class PatientListComponent {
+export class PatientListComponent implements OnInit, OnDestroy {
+
+  private ngUnsubscribe = new Subject<void>();
   displayedColumns: string[] = ['patientId', 'name', 'lastname', 'gender', 'details', 'edit', 'delete'];
-  dataSource = new MatTableDataSource<Patient>(PATIENTS);
+  dataSource = new MatTableDataSource<Patient>();
+  patients: Patient [] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -37,6 +33,24 @@ export class PatientListComponent {
     private patientService: PatientService,
     public dialog: MatDialog
   ) {}
+
+
+  ngOnInit(): void {
+    this.getPatients();
+  }
+
+  /**
+   * Get list of patients and initialize table
+   */
+  getPatients(): void {
+    this.patientService.getPatients()
+    .subscribe(patients => {
+      this.dataSource = new MatTableDataSource<Patient>(patients);
+      this.dataSource.paginator = this.paginator;
+      this.patients = patients;
+    });
+  }
+
 
   /**
    * Filter patient list by name, lastname or email
@@ -79,7 +93,7 @@ export class PatientListComponent {
    * Clear list and update paginator
    */
   clearFilter() {
-    this.dataSource = new MatTableDataSource<Patient>(PATIENTS);
+    this.dataSource = new MatTableDataSource<Patient>(this.patients);
     this.dataSource.paginator = this.paginator;
   }
 
@@ -104,7 +118,17 @@ export class PatientListComponent {
    */
   deletePatient(id: number) {
     this.patientService.deletePatient(id)
-    .subscribe(pat => 
-      this.dataSource = new MatTableDataSource<Patient>(pat));
+    .subscribe(pat => {
+      this.getPatients();
+      console.log("Patient deleted. Id: " + pat.id);
+    });
+  }
+
+  /**
+   * Cancel subscriptions to prevent memory leaks
+   */
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

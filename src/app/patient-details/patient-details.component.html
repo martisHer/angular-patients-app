@@ -8,10 +8,10 @@
       <div class="col-md-9">
         <div class="row">
           <div class="col-md-4">
-            <b>Patient id:</b> {{patient.patient_id}} 
+            <b>Patient id:</b> {{patient.id}} 
           </div>
           <div class="col-md-8">
-            <b>Patient name:</b> {{patient.first_name}} {{patient.last_name}} 
+            <b>Patient name:</b> {{patient.firstname}} {{patient.lastname}} 
           </div>
         </div>
         <div class="row mt-3">
@@ -30,8 +30,8 @@
     <div class="row mt-1">
       <div class="col-md-10"></div>
       <div class="col-md-2">
-        <button class="btn btn-light" type="button" routerLink="/add/{{patient.patient_id}}">Edit</button>
-        <button class="btn btn-custom-1" type="button" (click)="openDialog(patient.patient_id)">Delete</button>
+        <button class="btn btn-light" type="button" routerLink="/add/{{patient.id}}">Edit</button>
+        <button class="btn btn-custom-1" type="button" (click)="openDialog(patient.id)">Delete</button>
       </div>
     </div>
 
@@ -40,7 +40,7 @@
   <div class="row mt-1">
     <div class="col-md-10"></div>
     <div class="col-md-2">
-      <button class="btn btn-custom-black" type="button" (click)="goBack()">go back</button>
+      <button class="btn btn-custom-black" type="button" (click)="goBack()">Go back</button>
     </div>
   </div>
 
