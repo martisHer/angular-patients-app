@@ -4,12 +4,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 # Packages requirements 
 
-This project is using Angular Materials and Bootstrap for visualization purposes. Additionally it uses json-server to simulate a server. Before running the the project, please install the following packages:
+This project is using Angular Materials and Bootstrap for visualization purposes. Additionally it uses json-server to simulate a server. Before running the the project, please install the following packages in your working project:
 
 ### `ng add @ng-bootstrap/ng-bootstrap`
 ### `ng add @angular/material`
 ### `npm i @angular/animations`
-### `npm install -g json-server`
+### `npm install json-server`
 
 
 ## Available Scripts
