@@ -10,7 +10,9 @@ This project is using Angular Materials and Bootstrap for visualization purposes
 ### `ng add @angular/material`
 ### `npm i @angular/animations`
 ### `npm install json-server`
+### `npm i ng2-charts`
 
+NOTE: During installation of angular materials, when asking about the theme, please choose indigo-pink.
 
 ## Available Scripts
 
