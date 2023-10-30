@@ -4,11 +4,15 @@
     border-radius: 10px;
     padding: 2%;
     font-size: 16px;
-    background-color: #fff8f7;
+    background-color: #EAF6FF;
     -webkit-box-shadow: 4px 5px 7px 1px #000000; 
     box-shadow: 4px 5px 7px 1px #000000;
 }
 
 .btn-light {
     margin-right: 8px;
+}
+
+.button-row button {
+    margin-right: 3%;
 }

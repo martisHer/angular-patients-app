@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
-import { Patient } from '../interfaces/interfaces';
+import { Diagnose, Patient } from '../interfaces/interfaces';
 import { API } from './constants';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
@@ -76,6 +76,14 @@ export class PatientService {
    */
   private handleError(error: HttpErrorResponse) {
     return throwError(() => error);
+  }
+
+  /**
+   * Get list of patients from json-server
+   * @returns list of patients
+   */
+  getDiagnoses(): Observable<Diagnose[]> {
+    return this.http.get<Diagnose[]>(`${API}/diagnoses`);
   }
   
 }

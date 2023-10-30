@@ -29,9 +29,9 @@
     </div>
     <div class="row mt-1">
       <div class="col-md-10"></div>
-      <div class="col-md-2">
-        <button class="btn btn-light" type="button" routerLink="/add/{{patient.id}}">Edit</button>
-        <button class="btn btn-custom-1" type="button" (click)="openDialog(patient.id)">Delete</button>
+      <div class="col-md-2 button-row">
+        <button class="btn btn-custom-1 mr-2" type="button" routerLink="/add/{{patient.id}}">Edit</button>
+        <button class="btn btn-danger" type="button" (click)="openDialog(patient.id)">Delete</button>
       </div>
     </div>
 

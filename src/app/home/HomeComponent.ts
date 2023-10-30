@@ -92,7 +92,6 @@ export class HomeComponent implements OnInit,OnDestroy {
       });
   }
 
-
   /**
    * Group patients by age in 3 different ranges of age (18-30, 31-45, >45)
    * @param patients list of patients
@@ -120,6 +119,7 @@ export class HomeComponent implements OnInit,OnDestroy {
     countArray.push(count);
     return countArray;
   }
+
 
   /**
    * Cancel subscriptions to prevent memory leaks

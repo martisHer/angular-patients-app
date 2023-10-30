@@ -3,12 +3,12 @@
     width: 100%;
     border-radius: 10px;
     padding: 2%;
-    background-color: #fff8f7;
+    background-color: #EAF6FF;
     color: #191919;
     text-align: center;
     vertical-align: middle;
     font-size: 28px;
-    border: 1px solid #A4A8B7;
+    border: 1px solid #33B4FF;
     padding-top: 5%;
 }
 
@@ -19,26 +19,19 @@ mat-icon {
 
 .panel-button:hover {
     cursor: pointer;
-    background-color: #fffbfa;
+    background-color: #dff1fe;
 }
 
 img {
     width: 100%;
 }
 
-.header {
-    position: absolute;
-    text-align: center;
-    width: 100%;
-    /* vertical-align: inherit; */
-    margin-top: 7%;
-}
-
-.header h1 {
-    color: white;
-    font-size: 60px;
+h1 {
+    color: #32373B;
+    font-size: 30px;
+    margin: 2% 5%;
 }
 
 .option-panel {
-    margin: 3% 5%;
+    margin: 1% 5%;
 }
