@@ -8,8 +8,9 @@
     </div>
     <div class="col-md-4">
       <nav class="mt-2">
-        <a routerLink="list">Patient List</a>
-        <a routerLink="add">Add Patient</a>
+        <a routerLink="home" [routerLinkActive]="['active']">Home</a>
+        <a routerLink="list" [routerLinkActive]="['active']">Patient Management</a>
+        <a routerLink="add" [routerLinkActive]="['active']">Add Patient</a>
       </nav>
     </div>
   </div>

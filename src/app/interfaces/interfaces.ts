@@ -7,3 +7,10 @@ export interface Patient {
     age: number;
     avatar: string;
 }
+
+export interface Diagnose {
+    id: number;
+    diseaseId: number;
+    date: Date;
+    patientId: number;
+}

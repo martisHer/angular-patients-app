@@ -1,7 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --white: #fff;
+    --light-gray: #424242;
+    --dark-gray: #32373B;
+    --blue: #33B4FF;
+    --red: #dc3545;
+    --light-blue: #EAF6FF;
+    --pink: #C83E4D;
+    --light-pink: #F4A5AE;
+  }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.toolbar, .page-menu {
+    background-color: var(--dark-gray);
+    height: 55px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #33B4FF;
+    padding-top: 8px;
+    padding-left: 2%;
+    border-bottom: 2px solid --light-gray;
+}
+
+nav a {
+    color: var(--light-blue);
+    text-decoration: none;
+    margin: 3%;
+    font-weight: 300;
+    font-size: medium;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
 
 .main-container {
     margin: 2%;
@@ -9,22 +43,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .btn-custom-1 {
-    background-color: #ff7369;
+    background-color: var(--blue);
     color: #191919;
 }
 
 .btn-custom-1:hover {
-    background-color: #ff968f;
+    background-color: #4cbdff;
     color: #191919;
 }
 
 .btn-custom-black {
-    background-color: #424242;
+    background-color: var(--dark-gray);
     color: white;
 }
 
 .btn-custom-black:hover {
-    background-color: #595959;
+    background-color: #2c3033;
     color: white;
 }
 
@@ -47,4 +81,22 @@ mat-form-field {
 
 .active-link {
     cursor: pointer;
+}
+
+.chart-box {
+    height: 300px;
+    border: 1px solid silver;
+    border-radius: 10px;
+    padding: 3%;
+    -webkit-box-shadow: 5px 5px 9px 0px #000000; 
+    box-shadow: 5px 5px 9px 0px #000000;
+}
+
+.chart {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: white !important;
 }

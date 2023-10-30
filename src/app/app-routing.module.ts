@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { AddPatientComponent } from './add-patient/add-patient.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './home/HomeComponent';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
